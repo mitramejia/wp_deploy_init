@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+# post-receive
+
+# 1. Read STDIN (Format: "from_commit to_commit branch_name")
+from, to, branch = ARGF.read.split " "
+
+# 2. Only deploy if master branch was pushed
+if (branch =~ /master$/) == nil
+    puts "Received branch #{branch}, not deploying."
+    exit
+end
+
+# 3. Copy files to deploy directory
+deploy_to_dir = File.expand_path('../deploy')
+`GIT_WORK_TREE="#{deploy_to_dir}" git checkout -f master`
+puts "DEPLOY: master(#{to}) copied to '#{deploy_to_dir}'"
+
+# 4.TODO: Deployment Tasks
+# i.e.: Run Puppet Apply, Restart Daemons, etc
+`
