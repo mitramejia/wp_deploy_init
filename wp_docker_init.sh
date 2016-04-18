@@ -32,6 +32,8 @@ light_gray='\033[0;37m'
 white='\033[1;37m'
 no_color='\033[0m'
 
+
+
 #
 # ====================================================================================
 # FUNCTIONS
@@ -65,7 +67,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-prompt $light_purple "Configuring git..."
+prompt $purple "Configuring git..."
 
 
 # ------------------------------------------------
