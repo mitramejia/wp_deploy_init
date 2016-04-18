@@ -12,7 +12,7 @@ set -o nounset
 
 random_pass="$(openssl rand -base64 32)"
 app_dir=~/app
-script_dir=~/wp_docker_init.sh
+script_dir=~/wp_docker_init/
 droplet_ip=$(wget http://ipinfo.io/ip -qO -);
 
 # ------------------------------------------------
