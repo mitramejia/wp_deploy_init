@@ -167,6 +167,7 @@ docker pull corbinu/docker-phpmyadmin
 # Start Docker containers
 # ------------------------------------------------
 prompt $green "Starting docker containers..."
+cd $app_dir
 docker-compose up -d
 
 # ------------------------------------------------
@@ -178,7 +179,7 @@ rm -rf $(find ~/ -name "wp-content")
 mkdir -p $app_dir/wp-content  && cd $app_dir/wp-content
 mkdir production.git && cd production.git
 git init --bare
-cp $script_dir/post-receive $app_dir/wp-content/.git/hooks
+cp $script_dir/post-receive $app_dir/wp-content/production.git/hooks/
 chmod -x post-receive
 
 # ------------------------------------------------
