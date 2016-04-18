@@ -19,7 +19,7 @@ random_pass="$(openssl rand -base64 32)"
 droplet_ip=$(wget http://ipinfo.io/ip -qO -);
 
 __script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-__app_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd ./ && pwd)"/app
+___app_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd ./ && pwd)"/app
 __file="${__script_dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 
@@ -127,7 +127,7 @@ fi
 # Create app directory
 # ------------------------------------------------
 
-mkdir ${__app_dir} && cd ${__app_dir}
+mkdir ${___app_dir} && cd ${___app_dir}
 
 
 # ------------------------------------------------
@@ -156,7 +156,7 @@ phpmyadmin:
   environment:
     MYSQL_USERNAME: root
     MYSQL_ROOT_PASSWORD: ${random_pass}
-    " > ${__app_dir}/docker-compose.yml 
+    " > ${___app_dir}/docker-compose.yml 
 
 
 # ------------------------------------------------
@@ -184,11 +184,11 @@ docker-compose up -d
 # ------------------------------------------------
 
 prompt ${purple} "Configuring git..."
-rm -rf $(find ${__app_dir} -name "wp-content")
-mkdir -p ${__app_dir}/wp-content  && cd ${__app_dir}/wp-content
+rm -rf $(find ${___app_dir} -name "wp-content")
+mkdir -p ${___app_dir}/wp-content  && cd ${___app_dir}/wp-content
 mkdir production.git && cd production.git
 git init --bare
-cp ${__script_dir}/post-receive ${__app_dir}/wp-content/production.git/hooks/
+cp ${__script_dir}/post-receive ${___app_dir}/wp-content/production.git/hooks/
 chmod -x post-receive
 
 
