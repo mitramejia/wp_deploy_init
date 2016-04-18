@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
 # post-receive
-
+# import 'colorize'
 # 1. Read STDIN (Format: "from_commit to_commit branch_name")
 from, to, branch = ARGF.read.split " "
 
 # 2. Only deploy if master branch was pushed
+# TODO: Add colorize
 if (branch =~ /master$/) == nil
-    puts "Received branch #{branch}, not deploying."
+    puts "You must push from master branch. Received branch #{branch}, not deploying."
     exit
 end
 
