@@ -12,7 +12,7 @@ set -o nounset
 
 random_pass="$(openssl rand -base64 32)"
 app_dir=~/app
-script_dir=~/wp_docker_init.sh/
+script_dir=~/wp_docker_init.sh
 droplet_ip=$(wget http://ipinfo.io/ip -qO -);
 
 # ------------------------------------------------
@@ -47,8 +47,7 @@ no_color='\033[0m'
 function prompt() {
     message="$2"
     color="$1"
-    echo -e -n "$color$message\n"
-    echo -e -n '\033[0m'
+    printf "$color$message\033[0m\n"
 }
 
 
