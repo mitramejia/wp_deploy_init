@@ -10,7 +10,9 @@ set -o nounset
 # ====================================================================================
 #
 
-__random_pass="$(openssl rand -base64 32)"
+random_pass="$(openssl rand -base64 32)"
+app_dir=~/Desktop/app
+script_dir=~/wp_docker_init.sh/
 droplet_ip=$(wget http://ipinfo.io/ip -qO -);
 
 # ------------------------------------------------
@@ -116,6 +118,12 @@ else
 fi
 
 # ------------------------------------------------
+# Create app directory
+# ------------------------------------------------
+
+mkdir $app_dir && cd $app_dir
+
+# ------------------------------------------------
 # Create docker-compose.yml
 # ------------------------------------------------
 
@@ -131,7 +139,7 @@ wordpress:
 wordpress_db: 
   image: mariadb
   environment:
-    MYSQL_ROOT_PASSWORD: ${__random_pass}
+    MYSQL_ROOT_PASSWORD: ${random_pass}
 phpmyadmin:
   image: corbinu/docker-phpmyadmin
   links:
@@ -140,8 +148,8 @@ phpmyadmin:
     - 8181:80
   environment:
     MYSQL_USERNAME: root
-    MYSQL_ROOT_PASSWORD: ${__random_pass}
-    " > docker-compose.yml 
+    MYSQL_ROOT_PASSWORD: ${random_pass}
+    " > $app_dir/docker-compose.yml 
 
 
 # ------------------------------------------------
@@ -160,19 +168,16 @@ docker pull corbinu/docker-phpmyadmin
 prompt $green "Starting docker containers..."
 docker-compose up -d
 
-
 # ------------------------------------------------
 # Configure git
 # ------------------------------------------------
 
 prompt $green "Configuring git..."
-
-mkdir ~/app && cd app
-cd $(find ~/ -name "wp-content") && rm -rf ./
-mkdir -p wp-content  && cd wp-content
+rm -rf $(find ~/ -name "wp-content")
+mkdir -p $app_dir/wp-content  && cd $app_dir/wp-content
 mkdir production.git && cd production.git
 git init --bare
-cp ~/wp_docker_init/post-receive ~/app/wp-content/.git/hooks/
+cp $script_dir/post-receive $app_dir/wp-content/.git/hooks
 chmod -x post-receive
 
 # ------------------------------------------------
