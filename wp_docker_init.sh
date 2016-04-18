@@ -15,8 +15,8 @@ set -o nounset
 # BASH_SOURCE[0] is used so we can display the current file even if it is sourced by a parent script.
 # If you need the script that was executed, consider using $0 instead.
 
-# random_pass="$(openssl rand -base64 32)"
-# droplet_ip=$(wget http://ipinfo.io/ip -qO -);
+random_pass="$(openssl rand -base64 32)"
+droplet_ip=$(wget http://ipinfo.io/ip -qO -);
 
 __script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __app_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd ./ && pwd)"/app
