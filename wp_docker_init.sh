@@ -11,7 +11,7 @@ set -o nounset
 #
 
 random_pass="$(openssl rand -base64 32)"
-app_dir=~/Desktop/app
+app_dir=~/app
 script_dir=~/wp_docker_init.sh/
 droplet_ip=$(wget http://ipinfo.io/ip -qO -);
 
