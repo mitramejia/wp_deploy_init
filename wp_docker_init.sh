@@ -31,7 +31,7 @@ red='\033[0;31m'
 green='\033[1;32m'     
 yellow='\033[1;33m'
 blue='\033[1;34m'
-purple='\033[0;35m'     
+purple='\033[1;35m'     
 gray='\033[1;36m'         
 white='\033[0;37m'
 no_color='\033[0m'
@@ -207,7 +207,10 @@ mkdir -p ${__app_dir}/wp-content/deploy
 # Display instructions deploy from local machine
 # ------------------------------------------------
 
-prompt ${purple} "Now go to your repo and run these commands to setup your local repo to deploy here"
+prompt ${purple} "If you havent set your local wp-content/ folder as a git repo"
+prompt ${white} "git init or git flow init"
+prompt ${purple} "Now run these commands to configure your local wp-content/ folder to deploy here"
+
 prompt ${white} "git remote add production ssh://${droplet_ip}/~/app/wp-content/production.git"
 prompt ${white} "git remote set-url production root@162.243.56.183:/root/app/wp-content/production.git"
 prompt ${white} "git checkout master"
