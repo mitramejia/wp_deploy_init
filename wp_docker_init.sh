@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 set -o errexit
-set -o xtrace
-set -o errtrace
+# set -o xtrace
+# set -o errtrace
 set -o nounset
 
 #
@@ -23,8 +23,6 @@ __app_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd .. && pwd)"/app
 __file="${__script_dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 
-echo ${__app_dir}
-exit
 # ------------------------------------------------
 # Colors
 # ------------------------------------------------
@@ -68,7 +66,7 @@ function prompt() {
 # ------------------------------------------------
 
 if [[ $EUID -ne 0 ]]; then
-   prompt ${purple} "This script must be run as root"
+   prompt ${purple} "This script must run as root"
    exit 1
 fi
 
