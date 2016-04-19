@@ -1,20 +1,24 @@
 #!/usr/bin/env ruby
 # post-receive
 
+require 'colorize'
+
 # 1. Read STDIN (Format: "from_commit to_commit branch_name")
 from, to, branch = ARGF.read.split " "
 
 # 2. Only deploy if master branch was pushed
+# TODO: Add colorize
 if (branch =~ /master$/) == nil
-    puts "Received branch #{branch}, not deploying."
+	puts "You must push from branch #{"master".bold}. Received branch #{"#{branch}".bold}".yellow
+    puts "Not deploying".yellow.bold
     exit
 end
 
 # 3. Copy files to deploy directory
 deploy_to_dir = File.expand_path('../deploy')
 `GIT_WORK_TREE="#{deploy_to_dir}" git checkout -f master`
-puts "DEPLOY: master(#{to}) copied to '#{deploy_to_dir}'"
+puts "master(#{to}) copied to '#{deploy_to_dir}'".light_blue
+puts "Deploy completed".green.bold
 
 # 4.TODO: Deployment Tasks
 # i.e.: Run Puppet Apply, Restart Daemons, etc
-`
