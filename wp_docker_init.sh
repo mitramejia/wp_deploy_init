@@ -189,6 +189,7 @@ mkdir -p ${__app_dir}/wp-content  && cd ${__app_dir}/wp-content
 mkdir production.git && cd production.git
 git init --bare
 cp ${__script_dir}/post-receive ${__app_dir}/wp-content/production.git/hooks/
+cd ${__app_dir}/wp-content/production.git/hooks/
 chmod -x post-receive
 
 
