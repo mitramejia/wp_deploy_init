@@ -19,11 +19,12 @@ random_pass="$(openssl rand -base64 32)"
 droplet_ip=$(wget http://ipinfo.io/ip -qO -);
 
 __script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-__app_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd ./ && pwd)"/app
+__app_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd .. && pwd)"/app
 __file="${__script_dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 
-
+echo ${__app_dir}
+exit
 # ------------------------------------------------
 # Colors
 # ------------------------------------------------
@@ -198,7 +199,7 @@ chmod -x post-receive
 # ------------------------------------------------
 
 prompt ${purple} "Now go to your repo and run these commands to setup your local repo to deploy here"
-prompt ${white} "git remote add production ssh://${droplet_ip}}/~/app/wp-content/production.git"
+prompt ${white} "git remote add production ssh://${droplet_ip}/~/app/wp-content/production.git"
 prompt ${white} "git checkout master"
 prompt ${white} "git push origin master"
 prompt ${green} "Done"
