@@ -183,13 +183,24 @@ docker-compose up -d
 # ------------------------------------------------
 
 prompt ${purple} "Configuring git..."
+
+# Delete the wp-contet/ folder created by the wordpress docker container
 rm -rf $(find ${__app_dir} -name "wp-content")
+
+#Create a new wp-content/ folder and initialize a bare git repository 
 mkdir -p ${__app_dir}/wp-content  && cd ${__app_dir}/wp-content
 mkdir production.git && cd production.git
 git init --bare
+
+# Copy post-receive script to its proper git hooks/ folder 
 cp ${__script_dir}/post-receive ${__app_dir}/wp-content/production.git/hooks/
-cd ${__app_dir}/wp-content/production.git/hooks/
-chmod -x post-receive
+
+# Make the post-receive script executable
+chmod +x ${__app_dir}/wp-content/production.git/hooks/post-receive
+
+# Create deploy folder to hold theme files 
+# before the post-receive script moves them
+mkdir -p ${__app_dir}/wp-content/deploy
 
 
 # ------------------------------------------------
@@ -198,6 +209,7 @@ chmod -x post-receive
 
 prompt ${purple} "Now go to your repo and run these commands to setup your local repo to deploy here"
 prompt ${white} "git remote add production ssh://${droplet_ip}/~/app/wp-content/production.git"
+prompt ${white} "git remote set-url production root@162.243.56.183:/root/app/wp-content/production.git"
 prompt ${white} "git checkout master"
 prompt ${white} "git push origin master"
 prompt ${green} "Done"
