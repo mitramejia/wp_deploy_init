@@ -2,6 +2,8 @@
 
 ![Docker](http://www.cloudadmins.org/wp-content/uploads/2016/02/DockerLogo.png)
 
+This script configures your remote machine to receive theme/plugin updates via git
+
 ###Prerrequisites###
 1. Local Wordpress installation with a **git repository** initialized in your `wp-content/` folder.
 2. **SSH access** to your remote server.
