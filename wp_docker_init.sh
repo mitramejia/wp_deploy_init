@@ -164,17 +164,6 @@ phpmyadmin:
 
 
 # ------------------------------------------------
-# Download and install docker images
-# ------------------------------------------------ 
-
-# prompt ${purple} "Pulling docker images..."
-
-# docker pull ubuntu
-# docker pull mariadb
-# docker pull corbinu/docker-phpmyadmin	
-
-
-# ------------------------------------------------
 # Start Docker containers
 # ------------------------------------------------
 

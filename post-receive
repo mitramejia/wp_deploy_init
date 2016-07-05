@@ -15,7 +15,7 @@ if (branch =~ /master$/) == nil
 end
 
 # 3. Copy files to deploy directory
-deploy_to_dir = File.expand_path('../deploy')
+deploy_to_dir = File.expand_path('../../deploy')
 `GIT_WORK_TREE="#{deploy_to_dir}" git checkout -f master`
 puts "master(#{to}) copied to '#{deploy_to_dir}'".light_blue
 puts "Deploy completed".green.bold
