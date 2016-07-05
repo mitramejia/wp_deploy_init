@@ -85,20 +85,6 @@ fi
 
 
 # ------------------------------------------------
-# Download and install git
-# ------------------------------------------------
-# 
-if hash git 2>/dev/null; then 
-	prompt ${purple} "SCM_Breeze is already installed"
-else
-	prompt ${purple} "Installing SCM_Breeze..."
-	git clone git://github.com/ndbroadbent/scm_breeze.git ~/.scm_breeze
-	~/.scm_breeze/install.sh
-	source ~/.bashrc   # or source ~/.zshrc
-fi
-
-
-# ------------------------------------------------
 # Download and install python pip
 # ------------------------------------------------
 
@@ -202,18 +188,16 @@ mkdir -p ${__app_dir}/wp-content/deploy
 # ------------------------------------------------
 
 
-prompt ${purple} "If you havent set your local wp-content/ folder as a git repo run:"
+prompt ${blue} "If you havent set your local wp-content/ folder as a git repo run:"
 prompt ${white} "git init or git flow init"
 
-prompt ${purple} "Now run these commands to configure your local wp-content/ folder to deploy here:"
+prompt ${blue} "Now run these commands to configure your local wp-content/ folder to deploy here:"
 
 prompt ${white} "git remote add production ssh://${droplet_ip}/~/app/wp-content/production.git"
 prompt ${white} "git remote set-url production root@${droplet_ip}:/root/app/wp-content/production.git"
 prompt ${white} "git checkout master"
 prompt ${white} "git push origin master"
 prompt ${green} "Done"
-
-
 
 
 
