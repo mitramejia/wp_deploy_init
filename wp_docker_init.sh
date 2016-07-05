@@ -219,16 +219,10 @@ prompt ${white} "git init or git flow init"
 prompt ${purple} "Now run these commands to configure your local wp-content/ folder to deploy here:"
 
 prompt ${white} "git remote add production ssh://${droplet_ip}/~/app/wp-content/production.git"
-prompt ${white} "git remote set-url production root@162.243.56.183:/root/app/wp-content/production.git"
+prompt ${white} "git remote set-url production root@${droplet_ip}:/root/app/wp-content/production.git"
 prompt ${white} "git checkout master"
 prompt ${white} "git push origin master"
 prompt ${green} "Done"
-
-prompt ${purple} "Now go to your repo and run these commands to setup your local repo to deploy here"
-prompt ${blue} "git remote add production ssh://${droplet_ip}/~/app/wp-content/production.git"
-prompt ${blue} "git remote set-url production root@${droplet_ip}:/root/app/wp-content/production.git"
-prompt ${blue} "git checkout master"
-prompt ${blue} "git push origin master"
 
 
 
