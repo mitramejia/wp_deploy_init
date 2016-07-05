@@ -135,6 +135,7 @@ mkdir ${__app_dir} && cd ${__app_dir}
 
 echo "
 wordpress:
+  container_name: wordpress
   image: wordpress
   links:
     - wordpress_db:mysql
@@ -142,12 +143,16 @@ wordpress:
     - 80:80
   volumes:
     - '~/app:/var/www/html'
+    
 wordpress_db: 
+  container_name: wordpress_db
   image: mariadb
   environment:
     MYSQL_ROOT_PASSWORD: ${random_pass}
+
 phpmyadmin:
-  image: corbinu/docker-phpmyadmin
+  container_name: phpmyadmin
+  image: phpmyadmin/phpmyadmin
   links:
     - wordpress_db:mysql
   ports:
@@ -162,11 +167,11 @@ phpmyadmin:
 # Download and install docker images
 # ------------------------------------------------ 
 
-prompt ${purple} "Pulling docker images..."
+# prompt ${purple} "Pulling docker images..."
 
-docker pull ubuntu
-docker pull mariadb
-docker pull corbinu/docker-phpmyadmin	
+# docker pull ubuntu
+# docker pull mariadb
+# docker pull corbinu/docker-phpmyadmin	
 
 
 # ------------------------------------------------
@@ -208,11 +213,11 @@ mkdir -p ${__app_dir}/wp-content/deploy
 # ------------------------------------------------
 
 prompt ${purple} "Now go to your repo and run these commands to setup your local repo to deploy here"
-prompt ${white} "git remote add production ssh://${droplet_ip}/~/app/wp-content/production.git"
-prompt ${white} "git remote set-url production root@162.243.56.183:/root/app/wp-content/production.git"
-prompt ${white} "git checkout master"
-prompt ${white} "git push origin master"
-prompt ${green} "Done"
+prompt ${blue} "git remote add production ssh://${droplet_ip}/~/app/wp-content/production.git"
+prompt ${blue} "git remote set-url production root@${droplet_ip}:/root/app/wp-content/production.git"
+prompt ${blue} "git checkout master"
+prompt ${blue} "git push origin master"
+prompt ${blue} "Done."
 
 
 
