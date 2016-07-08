@@ -183,10 +183,6 @@ cp ${__script_dir}/post-receive ${__app_dir}/wp-content/production.git/hooks/
 # Make the post-receive script executable
 chmod +x ${__app_dir}/wp-content/production.git/hooks/post-receive
 
-# Create deploy folder to hold theme files 
-# before the post-receive script moves them
-mkdir -p ${__app_dir}/wp-content/deploy
-
 
 # ------------------------------------------------
 # Display instructions deploy from local machine
