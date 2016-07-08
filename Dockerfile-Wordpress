@@ -1,0 +1,16 @@
+############################################################
+# Dockerfile to build a Wordpress installation
+# Based on Ubuntu
+############################################################
+
+
+FROM wordpress
+FROM mariadb
+FROM phpmyadmin/phpmyadmin
+
+# File Author / Maintainer
+MAINTAINER Mitra Mejía	
+
+RUN /bin/usermod -u 1000 mysql
+RUN /bin/usermod -u 1000 www-data
+RUN /bin/usermod -G staff www-data
