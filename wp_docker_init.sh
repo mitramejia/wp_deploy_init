@@ -148,7 +148,7 @@ services:
   database: 
     container_name: database
     build:
-      context: ./dockerfiles/mariadb 
+      context: ./dockerfiles/myslq 
       dockerfile: Dockerfile
     volumes:
       - '~/app/database:/var/lib/mysql'

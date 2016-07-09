@@ -78,7 +78,7 @@ fi
 # Download and install SCM_Breeze
 # ------------------------------------------------
 
-if hash git 2>/dev/null; then 
+if hash gs 2>/dev/null; then 
 	prompt ${purple} "SCM_Breeze is already installed"
 else
 	prompt ${purple} "Installing SCM_Breeze..."
