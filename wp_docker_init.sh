@@ -150,7 +150,7 @@ services:
   wordpress_db: 
     container_name: database
     build:
-      context: ./dockerfiles/myslq  
+      context: ./dockerfiles/mysql  
       dockerfile: Dockerfile
     volumes:
       - '~/app/database:/var/lib/mysql'
