@@ -125,32 +125,50 @@ mkdir ${__app_dir} && cd ${__app_dir}
 # ------------------------------------------------
 
 echo "
-wordpress:
-  container_name: wordpress
-  image: wordpress
-  links:
-    - wordpress_db:mysql
-  ports:
-    - 80:80
-  volumes:
-    - '~/app:/var/www/html'
-    
-wordpress_db: 
-  container_name: wordpress_db
-  image: mariadb
-  environment:
-    MYSQL_ROOT_PASSWORD: ${random_pass}
+version: '2'
 
-phpmyadmin:
-  container_name: phpmyadmin
-  image: phpmyadmin/phpmyadmin
-  links:
-    - wordpress_db:mysql
-  ports:
-    - 8181:80
-  environment:
-    MYSQL_USERNAME: root
-    MYSQL_ROOT_PASSWORD: ${random_pass}
+services:
+
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./dockerfiles/wordpress
+      dockerfile: Dockerfile
+    links:
+      - wordpress_db:mysql
+    ports:
+      - 8080:80
+    volumes:
+      - '~/app/wordpress:/var/www/html'
+    environment:
+      WORDPRESS_DB_PASSWORD: ${random_pass}
+      WORDPRESS_DB_USER: root
+    restart: always
+
+  database: 
+    container_name: database
+    build:
+      context: ./dockerfiles/mariadb 
+      dockerfile: Dockerfile
+    volumes:
+      - '~/app/database:/var/lib/mysql'
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: ${random_pass} 
+
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links:
+      - wordpress_db:mysql
+    ports:
+      - 8181:80
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: ${random_pass}
+
+    restart: always
     " > ${__app_dir}/docker-compose.yml 
 
 

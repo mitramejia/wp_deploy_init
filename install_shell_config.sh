@@ -58,13 +58,21 @@ fi
 # Download and install zsh
 # ------------------------------------------------
 
+apt-get update
 apt-get install zsh
 
 # ------------------------------------------------
 # Download and install oh_my_zsh
 # ------------------------------------------------
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+if hash git 2>/dev/null; then 
+	prompt ${purple} "OH My ZSH is already installed"
+else
+	prompt ${purple} "Installing OH My ZSH..."
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	source ~/.zshrc   # or source ~/.zshrc
+fi
+
 
 # ------------------------------------------------
 # Download and install SCM_Breeze
@@ -78,3 +86,5 @@ else
 	~/.scm_breeze/install.sh
 	source ~/.zshrc   # or source ~/.zshrc
 fi
+
+prompt ${green} "Done"

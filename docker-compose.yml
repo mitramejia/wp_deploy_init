@@ -1,29 +1,38 @@
 version: '2'
+
 services:
+
   wordpress:
+    container_name: wordpress
     build:
-      context: ./
-      dockerfile: Dockerfile-Wordpress
-    restart: always
+      context: ./dockerfiles/wordpress
+      dockerfile: Dockerfile
     links:
       - wordpress_db:mysql
     ports:
       - 8080:80
     volumes:
-      - "~/docker-test/website/:/var/www/html"
+      - "~/docker-test/website:/var/www/html"
+    environment:
+      WORDPRESS_DB_PASSWORD: tASwejAM5vec2_trAK
+      WORDPRESS_DB_USER: root
+    restart: always
+
   wordpress_db: 
+    container_name: database
     build:
-      context: ./
-      dockerfile: Dockerfile-Wordpress
+      context: ./dockerfiles/mariadb 
+      dockerfile: Dockerfile
     volumes:
-      - "./.data/db:/var/lib/mysql"
+      - "~/docker-test/data:/var/lib/mysql"
     restart: always
     environment: 
-      MYSQL_ROOT_PASSWORD: tASwejAM5vec2_trAK
+      MYSQL_ROOT_PASSWORD: tASwejAM5vec2_trAK 
+
+
   phpmyadmin:
-    build:
-      context: ./
-      dockerfile: Dockerfile-Wordpress
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
     links:
       - wordpress_db:mysql
     ports:
@@ -31,3 +40,5 @@ services:
     environment:
       MYSQL_USERNAME: root
       MYSQL_ROOT_PASSWORD: tASwejAM5vec2_trAK
+
+    restart: always
