@@ -117,7 +117,9 @@ fi
 # Create app directory
 # ------------------------------------------------
 
-mkdir ${__app_dir} && cd ${__app_dir}
+mkdir ${__app_dir}
+# Move dockerfiles to app directory
+cp -r ./dockerfiles ${__app_dir}
 
 
 # ------------------------------------------------
