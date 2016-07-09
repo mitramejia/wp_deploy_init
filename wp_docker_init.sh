@@ -145,7 +145,7 @@ services:
       WORDPRESS_DB_USER: root
     restart: always
 
-  database: 
+  wordpress_db: 
     container_name: database
     build:
       context: ./dockerfiles/myslq  
