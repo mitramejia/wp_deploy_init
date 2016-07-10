@@ -64,8 +64,9 @@ function prompt() {
 # ------------------------------------------------
 # Update package list
 # ------------------------------------------------
-
-apt-get update 
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  apt-get update 
+fi
 
 # ------------------------------------------------
 # Make sure the script is being ran as root
@@ -191,11 +192,11 @@ docker-compose up -d
 prompt ${purple} "Configuring git..."
 
 # Delete the wp-contet/ folder created by the wordpress docker container
-rm -rf $(find ${__app_dir} -name "wp-content")
+rm -rf $(find ${__wordpress_dir} -name "wp-content")
 
 #Create a new wp-content/ folder and initialize a bare git repository 
 mkdir -p ${__wordpress_dir}/wp-content  && cd ${__wordpress_dir}/wp-content
-mkdir production.git && cd production.git
+mkdir -p production.git && cd production.git
 git init --bare
 
 # Copy post-receive script to its proper git hooks/ folder 
