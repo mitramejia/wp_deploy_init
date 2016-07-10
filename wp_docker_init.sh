@@ -194,7 +194,7 @@ prompt ${purple} "Configuring git..."
 rm -rf $(find ${__app_dir} -name "wp-content")
 
 #Create a new wp-content/ folder and initialize a bare git repository 
-mkdir -p ${__wordpress_dir}wp-content  && cd ${__wordpress_dir}/wp-content
+mkdir -p ${__wordpress_dir}/wp-content  && cd ${__wordpress_dir}/wp-content
 mkdir production.git && cd production.git
 git init --bare
 
