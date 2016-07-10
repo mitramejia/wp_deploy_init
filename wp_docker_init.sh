@@ -150,7 +150,7 @@ services:
     restart: always
 
   wordpress_db: 
-    container_name: database
+    container_name: db
     build:
       context: ./dockerfiles/mysql  
       dockerfile: Dockerfile
@@ -201,10 +201,10 @@ mkdir -p production.git && cd production.git
 git init --bare
  
 # Copy post-receive script to its proper git hooks/ folder 
-cp ${__script_dir}/post-receive ${__wordpress_dir}/wp-content/production.git/hooks/
+cp ${__script_dir}/post-receive ${__wordpress_dir}/production.git/hooks/
 
 # Make the post-receive script executable
-chmod +x ${__wordpress_dir}/wp-content/production.git/hooks/post-receive
+chmod +x ${__wordpress_dir}/production.git/hooks/post-receive
 
 
 # ------------------------------------------------
@@ -217,8 +217,8 @@ prompt ${white} "git init or git flow init"
 
 prompt ${blue} "Now run these commands to configure your local wp-content/ folder to deploy here:"
 
-prompt ${white} "git remote add production ssh://${droplet_ip}/~/app/wp-content/production.git"
-prompt ${white} "git remote set-url production root@${droplet_ip}:/root/app/wp-content/production.git"
+prompt ${white} "git remote add production ssh://${droplet_ip}/~/${__wordpress_dir}/wp-content/production.git"
+prompt ${white} "git remote set-url production root@${droplet_ip}:/${__wordpress_dir}/wp-content/production.git"
 prompt ${white} "git checkout master"
 prompt ${white} "git push origin master"
 prompt ${green} "Done"
