@@ -11,11 +11,11 @@ from, to, branch = ARGF.read.split " "
 if (branch =~ /master$/) == nil
 	puts "You must push from branch #{"master".bold}. Received branch #{"#{branch}".bold}".yellow
     puts "Not deploying".yellow.bold
-    exit
+    exit 
 end
 
 # 3. Copy files to deploy directory
-deploy_to_dir = '/root/app/wordpress/wp-content' # moves back to the wp-content folder
+deploy_to_dir = '/root/app/wordpress/' # moves back to the wp-content folder
 `GIT_WORK_TREE="#{deploy_to_dir}" git checkout -f master`
 puts "master(#{to}) copied to '#{deploy_to_dir}'".light_blue
 puts "Deploy completed".green.bold
