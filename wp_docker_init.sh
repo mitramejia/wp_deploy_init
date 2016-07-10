@@ -20,6 +20,7 @@ droplet_ip=$(wget http://ipinfo.io/ip -qO -);
 
 __script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __app_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd .. && pwd)"/app
+__wordpress_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd .. && pwd)"/app/wordpress
 __file="${__script_dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 
@@ -193,15 +194,15 @@ prompt ${purple} "Configuring git..."
 rm -rf $(find ${__app_dir} -name "wp-content")
 
 #Create a new wp-content/ folder and initialize a bare git repository 
-mkdir -p ${__app_dir}/wp-content  && cd ${__app_dir}/wp-content
+mkdir -p ${__wordpress_dir}wp-content  && cd ${__wordpress_dir}/wp-content
 mkdir production.git && cd production.git
 git init --bare
 
 # Copy post-receive script to its proper git hooks/ folder 
-cp ${__script_dir}/post-receive ${__app_dir}/wp-content/production.git/hooks/
+cp ${__script_dir}/post-receive ${__wordpress_dir}/wp-content/production.git/hooks/
 
 # Make the post-receive script executable
-chmod +x ${__app_dir}/wp-content/production.git/hooks/post-receive
+chmod +x ${__wordpress_dir}/wp-content/production.git/hooks/post-receive
 
 
 # ------------------------------------------------
